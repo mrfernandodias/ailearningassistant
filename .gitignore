@@ -1,0 +1,129 @@
+# ============================================
+# MERN Stack - AI Learning Assistant
+# Git Ignore - Monorepo (Frontend + Backend)
+# ============================================
+
+# ==========================================
+# 🗂️ NODE.JS & NPM
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ==========================================
+# 📦 PACKAGE MANAGERS
+# ==========================================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==========================================
+# 🔐 ENVIRONMENT VARIABLES
+# ==========================================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.env
+
+# ==========================================
+# 🏗️ BUILD & DIST (Frontend Vite)
+# ==========================================
+frontend/**/dist/
+frontend/**/build/
+frontend/**/.vite/
+frontend/**/vite.config.js.timestamp-*
+
+# ==========================================
+# 📝 LOGS
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# 🧪 TESTING & COVERAGE
+# ==========================================
+coverage/
+*.lcov
+.nyc_output/
+.grunt
+lib-cov
+.mocha-reporter.json
+
+# ==========================================
+# 🔧 IDEs & EDITORS
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# 📤 UPLOADS & TEMPORARY FILES
+# ==========================================
+backend/uploads/
+backend/temp/
+backend/tmp/
+*.pdf
+*.docx
+*.xlsx
+
+# ==========================================
+# 🗄️ DATABASE (LOCAL)
+# ==========================================
+*.sqlite
+*.sqlite3
+*.db
+
+# ==========================================
+# 🐳 DOCKER
+# ==========================================
+docker-compose.override.yml
+.dockerignore
+
+# ==========================================
+# 🚀 DEPLOYMENT
+# ==========================================
+.vercel
+.netlify
+.output
+
+# ==========================================
+# 🔍 MISC
+# ==========================================
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.contentlayer
+.turbo
+.vite-inspect
+
+# ==========================================
+# 🤖 AI & API KEYS (SEGURANÇA)
+# ==========================================
+**/GEMINI_API_KEY.txt
+**/api-keys.txt
+
+# ==========================================
+# 📚 DOCS TEMPORÁRIOS
+# ==========================================
+docs/temp/
+docs/*.tmp
