@@ -1,22 +1,22 @@
 {
-  // =============================================================
-  // VS CODE WORKSPACE SETTINGS
-  // Modo padrão: Equilíbrio para ESTUDO (clareza > velocidade)
-  // Abaixo há um bloco comentado "FOCUS MODE" para alta performance.
-  // Para alternar: copie as linhas do bloco e substitua as atuais.
-  // =============================================================
-
   "editor.rulers": [100],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
+  // Desabilitado para permitir imports não utilizados durante desenvolvimento
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": "explicit"
+  // },
 
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
@@ -29,24 +29,14 @@
     "javascript": "javascriptreact"
   },
 
-  // Fechamento automático de pares
-  "editor.autoClosingBrackets": "always", // {}, [], ()
-  "editor.autoClosingQuotes": "always", // ' " `
-  "editor.autoSurround": "languageDefined", // envolve seleção ao digitar () [] {}
+  "editor.autoClosingBrackets": "always",
+  "editor.autoClosingQuotes": "always",
+  "editor.autoSurround": "languageDefined",
   "editor.formatOnType": true,
 
-  // Tags HTML/JSX
   "html.autoClosingTags": true,
-
-  // Emmet: expand em Tab (opcional para rapidez em JSX)
   "emmet.triggerExpansionOnTab": true,
 
-  // =============================================================
-  // STUDY MODE (ativo agora):
-  // - Sugestões moderadas, ajuda de parâmetros
-  // - Auto-import normal
-  // - Inline suggestions desativadas para evitar distração
-  // =============================================================
   "editor.inlineSuggest.enabled": false,
   "editor.parameterHints.enabled": true,
   "editor.suggest.preview": false,
@@ -59,43 +49,7 @@
   "editor.acceptSuggestionOnEnter": "smart",
   "javascript.suggest.autoImports": true,
   "typescript.suggest.autoImports": true,
-  "css.lint.unknownAtRules": "ignore", // ignora @apply, @tailwind, @theme avisos
+  "css.lint.unknownAtRules": "ignore",
 
-  // 🎨 TAILWIND CSS v4 - Autocomplete avançado
-  "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
-  "tailwindCSS.includeLanguages": {
-    "javascript": "javascriptreact"
-  },
-  "editor.quickSuggestions": {
-    "strings": true // Ativa autocomplete Tailwind dentro de strings
-  }
-
-  // =============================================================
-  // FOCUS MODE (descomente para ativar performance máxima):
-  // -------------------------------------------------------------
-  // "editor.inlineSuggest.enabled": true,
-  // "editor.parameterHints.enabled": false,
-  // "editor.quickSuggestions": { "other": false, "comments": false, "strings": false },
-  // "editor.suggestOnTriggerCharacters": false, // só Ctrl+Space
-  // "editor.suggest.preview": true,
-  // "editor.acceptSuggestionOnEnter": "smart",
-  // "editor.codeActionsOnSave": { "source.fixAll.eslint": "explicit", "source.organizeImports": "explicit" },
-  // "editor.minimap.enabled": false,
-  // "workbench.editor.enablePreview": false,
-  // -------------------------------------------------------------
-  // Observação: mantenha um commit separado quando alternar de modo.
-  // =============================================================
-
-  // Extensões recomendadas (instalar manualmente):
-  // - esbenp.prettier-vscode
-  // - dbaeumer.vscode-eslint
-  // - usernamehw.errorlens
-  // - formulahendry.auto-close-tag
-  // - eamodio.gitlens
-  // - bradlc.vscode-tailwindcss
-
-  // Snippets futuros (pode criar em .vscode/ ou user snippets):
-  // ex: React component, hook template, teste rápido.
+  "eslint.workingDirectories": [{ "mode": "auto" }]
 }

@@ -1,95 +1,107 @@
 # 🎓 AI Learning Assistant - MERN Stack
 
-Sistema de assistente de estudos com IA para upload de PDFs, chat inteligente, geração automática de flashcards e quizzes usando Google Gemini AI.
+AI-powered learning assistant for uploading PDFs, intelligent chat, automatic flashcard and quiz generation using Google Gemini AI.
 
 ---
 
-## 📚 Projeto Tutorial
+## 📚 Tutorial Project
 
-**Fonte:** [YouTube - AI Learning Assistant Full Stack](https://www.youtube.com/watch?v=iaAdWmAu0TE)  
-**Duração:** 6+ horas  
+**Source:** [YouTube - AI Learning Assistant Full Stack](https://www.youtube.com/watch?v=iaAdWmAu0TE)
+**Duration:** 6+ hours
 **Stack:** MongoDB, Express, React, Node.js + Google Gemini AI
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Features
 
-### 🔐 Autenticação
-- [x] Login/Register com JWT
-- [x] Proteção de rotas (ProtectedRoute)
-- [ ] Atualização de senha
-- [ ] Perfil do usuário
+### 🔐 Authentication
 
-### 📄 Gestão de Documentos
-- [ ] Upload de PDFs
-- [ ] Visualizador de PDF embarcado
-- [ ] Listagem e exclusão de documentos
-- [ ] Tracking de tamanho de arquivos
+- [x] Login/Register with JWT
+- [x] Protected routes (ProtectedRoute)
+- [ ] Password reset
+- [ ] User profile
 
-### 🤖 IA Integrada (Google Gemini)
-- [ ] Chat contextual com documentos
-- [ ] Geração automática de resumos
-- [ ] Explicação de conceitos
-- [ ] Histórico de conversas
+### 📄 Document Management
+
+- [x] PDF upload with Multer
+- [x] PDF text extraction (pdf-parse)
+- [x] Text chunking for AI processing
+- [x] Document listing with aggregation
+- [x] Document deletion
+- [ ] Embedded PDF viewer
+
+### 🤖 AI Integration (Google Gemini)
+
+- [ ] Contextual chat with documents (RAG pattern)
+- [ ] Automatic summarization
+- [ ] Concept explanation
+- [ ] Chat history
 
 ### 🎴 Flashcards
-- [ ] Geração automática via IA
-- [ ] Sistema de favoritos
-- [ ] Animação de flip
-- [ ] Review de flashcards
+
+- [ ] AI-powered generation
+- [ ] Favorites system
+- [ ] Flip animation
+- [ ] Flashcard review
 
 ### 📝 Quizzes
-- [ ] Geração automática de questões
-- [ ] Múltipla escolha configurável
-- [ ] Resultados com feedback
-- [ ] Analytics de performance
+
+- [ ] Automatic question generation
+- [ ] Multiple choice questions
+- [ ] Results with feedback
+- [ ] Performance analytics
 
 ### 📊 Dashboard
-- [ ] Visão geral de atividades
-- [ ] Estatísticas (documentos, flashcards, quizzes)
-- [ ] Feed de atividades recentes
+
+- [ ] Activity overview
+- [ ] Statistics (documents, flashcards, quizzes)
+- [ ] Recent activity feed
 
 ---
 
-## 🛠️ Stack Tecnológica
+## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Framework:** React 19 + Vite
-- **Estilização:** Tailwind CSS v4.1
-- **Roteamento:** React Router DOM v7
+- **Styling:** Tailwind CSS v4.1
+- **Routing:** React Router DOM v7
 - **HTTP Client:** Axios
-- **Notificações:** React Hot Toast
+- **Notifications:** React Hot Toast
 - **Markdown:** React Markdown + Remark GFM
-- **Ícones:** Lucide React
-- **Datas:** Moment.js
+- **Icons:** Lucide React
+- **Dates:** Moment.js
 - **Code Highlight:** React Syntax Highlighter
 
 ### Backend
+
 - **Runtime:** Node.js + Express
 - **Database:** MongoDB + Mongoose
-- **Autenticação:** JWT (jsonwebtoken)
-- **Upload:** Multer
-- **IA:** Google Gemini AI
-- **Validação:** Express Validator
-- **Segurança:** Helmet, CORS, bcryptjs
+- **Authentication:** JWT (jsonwebtoken)
+- **File Upload:** Multer
+- **PDF Processing:** pdf-parse
+- **AI:** Google Gemini AI
+- **Validation:** Express Validator
+- **Security:** Helmet, CORS, bcryptjs
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Project Structure
 
 ```
 ailearningassistant/
-├── .vscode/              # Configurações VSCode
-├── docs/                 # Documentação
-│   └── react-router-dom-essencial.md
+├── .vscode/              # VSCode settings
+├── docs/                 # Documentation
+│   ├── react-router-dom-essencial.md
+│   └── VISAO-GERAL-DO-PROJETO.md
 ├── frontend/
 │   └── ai-learning-assistant/
 │       ├── src/
-│       │   ├── components/   # Componentes reutilizáveis
-│       │   ├── pages/        # Páginas da aplicação
+│       │   ├── components/   # Reusable components
+│       │   ├── pages/        # Application pages
 │       │   ├── services/     # API services (axios)
-│       │   ├── utils/        # Utilitários
-│       │   ├── App.jsx       # Rotas principais
+│       │   ├── utils/        # Utilities
+│       │   ├── App.jsx       # Main routes
 │       │   └── main.jsx      # Entry point
 │       ├── package.json
 │       └── vite.config.js
@@ -97,109 +109,123 @@ ailearningassistant/
     ├── models/           # Mongoose schemas
     ├── routes/           # Express routes
     ├── controllers/      # Business logic
-    ├── middleware/       # Auth, upload, etc
-    ├── config/           # Database, env
-    ├── uploads/          # PDFs (gitignored)
+    ├── helpers/          # Helper functions (processPDF)
+    ├── middleware/       # Auth, error handling
+    ├── config/           # Database, multer, env
+    ├── utils/            # PDF parser, text chunker
+    ├── uploads/          # Uploaded PDFs (gitignored)
     ├── server.js         # Entry point
     └── package.json
 ```
 
 ---
 
-## 🚀 Como Rodar o Projeto
+## 🚀 Getting Started
 
-### Pré-requisitos
-- Node.js 18+ instalado
-- MongoDB rodando (local ou Atlas)
-- Chave API do Google Gemini
+### Prerequisites
 
-### 1️⃣ Clone o Repositório
+- Node.js 18+ installed
+- MongoDB running (local or Atlas)
+- Google Gemini API key
+
+### 1️⃣ Clone Repository
+
 ```bash
 git clone <repository-url>
 cd ailearningassistant
 ```
 
 ### 2️⃣ Backend Setup
+
 ```bash
 cd backend
 npm install
 cp .env.example .env
-# Configure as variáveis no .env
+# Configure environment variables in .env
 npm run dev
 ```
 
-**Variáveis necessárias (.env):**
+**Required environment variables (.env):**
+
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/ai-learning-assistant
-JWT_SECRET=seu_jwt_secret_aqui
-GEMINI_API_KEY=sua_chave_gemini_aqui
+JWT_SECRET=your_jwt_secret_here
+GEMINI_API_KEY=your_gemini_key_here
 ```
 
 ### 3️⃣ Frontend Setup
+
 ```bash
 cd frontend/ai-learning-assistant
 npm install
 npm run dev
 ```
 
-### 4️⃣ Acessar Aplicação
+### 4️⃣ Access Application
+
 - **Frontend:** http://localhost:5173
 - **Backend:** http://localhost:5000
 
 ---
 
-## 📖 Aprendizado & Progresso
+## 📖 Learning & Progress
 
-### Conceitos Dominados
-- ✅ React Router DOM (rotas protegidas, layouts, Outlet)
-- ✅ Tailwind CSS v4 (nova sintaxe com @import)
-- ✅ Estrutura de projeto MERN
-- ✅ Configuração VSCode para desenvolvimento
+### Implemented Features
 
-### Próximos Passos
-- [ ] Implementar backend (MongoDB, Express)
-- [ ] Integrar autenticação JWT
-- [ ] Conectar frontend com API
-- [ ] Implementar upload de PDFs
-- [ ] Integrar Google Gemini AI
-- [ ] Testar funcionalidades completas
+- ✅ React Router DOM (protected routes, layouts, Outlet)
+- ✅ Tailwind CSS v4 (new syntax with @import)
+- ✅ MERN project structure
+- ✅ JWT authentication
+- ✅ Document upload with Multer
+- ✅ PDF text extraction and chunking
+- ✅ Document CRUD operations
+- ✅ Background PDF processing
 
----
+### Next Steps
 
-## 🎓 Sobre o Desenvolvedor
-
-**Nome:** Fernando  
-**Background:** PHP/Laravel  
-**Aprendendo:** MERN Stack  
-**Estilo:** Entender o "porquê" das coisas, analogias com Laravel
+- [ ] AI chat controller (RAG pattern)
+- [ ] Flashcard generation with Gemini
+- [ ] Quiz generation with Gemini
+- [ ] Connect frontend with backend API
+- [ ] Implement frontend pages
+- [ ] Full integration testing
 
 ---
 
-## 📝 Notas de Desenvolvimento
+## 🎓 About the Developer
 
-- **Data Início:** 03/12/2025
-- **Status:** 🟡 Em desenvolvimento (frontend estruturado)
-- **Commits:** Estrutura modular, um commit por funcionalidade
-- **Docs:** Documentação própria em `/docs/`
-
----
-
-## 🤝 Contribuição
-
-Este é um projeto de estudo pessoal seguindo tutorial. Sugestões e melhorias são bem-vindas!
+**Name:** Fernando
+**Background:** PHP/Laravel
+**Learning:** MERN Stack
+**Style:** Understanding the "why" of things, analogies with Laravel
 
 ---
 
-## 📄 Licença
+## 📝 Development Notes
 
-MIT License - Livre para uso educacional
+- **Start Date:** December 3, 2025
+- **Status:** 🟢 Backend document domain complete
+- **Commits:** Modular structure, one commit per feature
+- **Docs:** Custom documentation in `/docs/`
 
 ---
 
-## 🔗 Links Úteis
+## 🤝 Contributing
 
-- [Tutorial Original](https://www.youtube.com/watch?v=iaAdWmAu0TE)
+This is a personal learning project following a tutorial. Suggestions and improvements are welcome!
+
+---
+
+## 📄 License
+
+MIT License - Free for educational use
+
+---
+
+## 🔗 Useful Links
+
+- [Original Tutorial](https://www.youtube.com/watch?v=iaAdWmAu0TE)
 - [React Router Docs](https://reactrouter.com/)
 - [Tailwind CSS v4 Docs](https://tailwindcss.com/)
 - [Google Gemini AI](https://ai.google.dev/)
