@@ -127,3 +127,4 @@ docker-compose.override.yml
 # ==========================================
 docs/temp/
 docs/*.tmp
+docs/*

@@ -25,6 +25,7 @@ import { fileURLToPath } from 'url'; // Converte URLs de módulos ES6 para camin
 import connectDB from './config/db.js'; // Conexão com MongoDB
 import errorHandler from './middleware/errorHandler.js'; // Middleware global de erros
 import authRoutes from './routes/authRoutes.js';
+import documentRoutes from './routes/documentRoutes.js';
 
 // ==========================================
 // ⚙️ CONFIGURAÇÃO INICIAL
@@ -135,6 +136,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/documents', documentRoutes);
 
 // ==========================================
 // ❌ 404 HANDLER - Rota Não Encontrada
@@ -190,11 +192,7 @@ const PORT = process.env.PORT || 8000;
  * Callback executado quando servidor está pronto
  */
 app.listen(PORT, () => {
-  console.log(
-    `🚀 Server running in ${
-      process.env.NODE_ENV || 'development'
-    } mode on port ${PORT}`
-  );
+  console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 
 // ==========================================
@@ -211,7 +209,7 @@ app.listen(PORT, () => {
  *
  * Laravel: Similar a reportar exceções não tratadas
  */
-process.on('unhandledRejection', (err) => {
+process.on('unhandledRejection', err => {
   console.error(`❌ Unhandled Promise Rejection: ${err.message}`);
   process.exit(1); // Encerra processo com código de erro
 });
