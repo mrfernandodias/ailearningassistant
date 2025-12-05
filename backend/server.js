@@ -24,8 +24,10 @@ import { fileURLToPath } from 'url'; // Converte URLs de módulos ES6 para camin
 // ==========================================
 import connectDB from './config/db.js'; // Conexão com MongoDB
 import errorHandler from './middleware/errorHandler.js'; // Middleware global de erros
+import aiRoutes from './routes/aiRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import documentRoutes from './routes/documentRoutes.js';
+import flashcardRoutes from './routes/flashcardRoutes.js';
 
 // ==========================================
 // ⚙️ CONFIGURAÇÃO INICIAL
@@ -137,6 +139,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentRoutes);
+app.use('/api/flashcards', flashcardRoutes);
+app.use('/api/ai', aiRoutes);
 
 // ==========================================
 // ❌ 404 HANDLER - Rota Não Encontrada
