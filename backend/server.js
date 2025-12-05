@@ -94,7 +94,7 @@ app.use(
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
-  })
+  }),
 );
 
 /**
@@ -200,7 +200,9 @@ const PORT = process.env.PORT || 8000;
  * Callback executado quando servidor está pronto
  */
 app.listen(PORT, () => {
-  console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  console.log(
+    `🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`,
+  );
 });
 
 // ==========================================
@@ -217,7 +219,7 @@ app.listen(PORT, () => {
  *
  * Laravel: Similar a reportar exceções não tratadas
  */
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
   console.error(`❌ Unhandled Promise Rejection: ${err.message}`);
   process.exit(1); // Encerra processo com código de erro
 });

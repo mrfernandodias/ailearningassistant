@@ -39,7 +39,10 @@ const protect = async (req, res, next) => {
    * $token = $request->bearerToken();
    * =========================================================================
    */
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
     try {
       /**
        * =====================================================================

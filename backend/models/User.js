@@ -85,7 +85,7 @@ const userSchema = new mongoose.Schema(
      * Laravel: $timestamps = true (default in Eloquent)
      */
     timestamps: true,
-  }
+  },
 );
 
 // ==========================================

@@ -36,13 +36,16 @@ export const generateFlashcards = async (req, res, next) => {
     }
 
     // Generate flashcards using Gemini
-    const cards = await geminiService.generateFlashcards(document.extractedText, parseInt(count));
+    const cards = await geminiService.generateFlashcards(
+      document.extractedText,
+      parseInt(count),
+    );
 
     // Save to database
     const flashcardSet = await Flashcard.create({
       userId: req.user._id,
       documentId: document._id,
-      cards: cards.map(card => ({
+      cards: cards.map((card) => ({
         question: card.question,
         answer: card.answer,
         difficulty: card.difficulty,
@@ -94,7 +97,7 @@ export const generateQuiz = async (req, res, next) => {
     // Generate quiz using Gemini
     const questions = await geminiService.generateQuiz(
       document.extractedText,
-      parseInt(numQuestions)
+      parseInt(numQuestions),
     );
 
     // Save to database
@@ -200,15 +203,16 @@ export const chat = async (req, res, next) => {
     const expandedQueries = await geminiService.expandQuery(question);
 
     // Find relevant chunks using all query variations
-    const allChunks = expandedQueries.flatMap(q => findRelevantChunks(document.chunks, q, 2));
-
-    // Remove duplicates and take top 5
-    const uniqueChunks = Array.from(new Map(allChunks.map(c => [c.chunkIndex, c])).values()).slice(
-      0,
-      5
+    const allChunks = expandedQueries.flatMap((q) =>
+      findRelevantChunks(document.chunks, q, 2),
     );
 
-    const chunkIndices = uniqueChunks.map(c => c.chunkIndex);
+    // Remove duplicates and take top 5
+    const uniqueChunks = Array.from(
+      new Map(allChunks.map((c) => [c.chunkIndex, c])).values(),
+    ).slice(0, 5);
+
+    const chunkIndices = uniqueChunks.map((c) => c.chunkIndex);
 
     // Get or create chat history
     let chatHistory = await ChatHistory.findOne({
@@ -226,7 +230,11 @@ export const chat = async (req, res, next) => {
 
     // Generate response using Gemini with conversation history
     const conversationHistory = chatHistory.messages || [];
-    const answer = await geminiService.chatWithContext(question, uniqueChunks, conversationHistory);
+    const answer = await geminiService.chatWithContext(
+      question,
+      uniqueChunks,
+      conversationHistory,
+    );
 
     // Save conversation
     chatHistory.messages.push(
@@ -241,7 +249,7 @@ export const chat = async (req, res, next) => {
         content: answer,
         timestamps: Date(),
         relevantChunks: chunkIndices,
-      }
+      },
     );
 
     await chatHistory.save();
@@ -294,8 +302,12 @@ export const explainConcept = async (req, res, next) => {
     }
 
     // Find relevant chunks for the concept
-    const relevantChunks = findRelevantChunks((await document).chunks, concept, 3);
-    const context = relevantChunks.map(c => c.content).join('\n\n');
+    const relevantChunks = findRelevantChunks(
+      (await document).chunks,
+      concept,
+      3,
+    );
+    const context = relevantChunks.map((c) => c.content).join('\n\n');
 
     // Generate explanation using Gemini
     const explanation = await geminiService.explainConcept(concept, context);
@@ -305,7 +317,7 @@ export const explainConcept = async (req, res, next) => {
       data: {
         concept,
         explanation,
-        relevantChunks: relevantChunks.map(c => c.chunkIndex),
+        relevantChunks: relevantChunks.map((c) => c.chunkIndex),
       },
       message: 'Explanation generated successfully',
     });

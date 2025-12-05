@@ -37,7 +37,7 @@ const PDFParse = require('pdf-parse').PDFParse;
  *
  * Laravel: Similar a $pdf->getText()
  */
-export const extractTextFromPDF = async filePath => {
+export const extractTextFromPDF = async (filePath) => {
   try {
     /**
      * API do pdf-parse v2:

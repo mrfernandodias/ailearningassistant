@@ -5,7 +5,7 @@ import Quiz from '../models/Quiz.js';
 /**
  * Helper: Get document statistics
  */
-const getDocumentStats = async userId => {
+const getDocumentStats = async (userId) => {
   const totalDocuments = await Document.countDocuments({ userId });
 
   const recentDocuments = await Document.find({ userId })
@@ -20,7 +20,7 @@ const getDocumentStats = async userId => {
 /**
  * Helper: Get flashcard statistics using aggregation
  */
-const getFlashcardStats = async userId => {
+const getFlashcardStats = async (userId) => {
   const stats = await Flashcard.aggregate([
     { $match: { userId } },
     { $unwind: '$cards' },
@@ -59,7 +59,7 @@ const getFlashcardStats = async userId => {
 /**
  * Helper: Get quiz statistics using aggregation
  */
-const getQuizStats = async userId => {
+const getQuizStats = async (userId) => {
   const stats = await Quiz.aggregate([
     { $match: { userId } },
     {
@@ -91,7 +91,12 @@ const getQuizStats = async userId => {
               as: 'documentInfo',
             },
           },
-          { $unwind: { path: '$documentInfo', preserveNullAndEmptyArrays: true } },
+          {
+            $unwind: {
+              path: '$documentInfo',
+              preserveNullAndEmptyArrays: true,
+            },
+          },
           {
             $project: {
               title: 1,
@@ -113,7 +118,7 @@ const getQuizStats = async userId => {
     averageScore: 0,
   };
 
-  const recentQuizzes = stats[0].recent.map(quiz => ({
+  const recentQuizzes = stats[0].recent.map((quiz) => ({
     _id: quiz._id,
     title: quiz.title,
     score: quiz.score,
@@ -138,7 +143,7 @@ const getQuizStats = async userId => {
 /**
  * Helper: Calculate study streak (placeholder for future implementation)
  */
-const getStudyStreak = async userId => {
+const getStudyStreak = async (userId) => {
   // TODO: Implement proper streak tracking with daily activity logs
   // For now, return mock data
   return Math.floor(Math.random() * 7) + 1;
@@ -154,12 +159,13 @@ export const getDashboard = async (req, res, next) => {
     const userId = req.user._id;
 
     // Execute all queries in parallel for maximum performance
-    const [documentStats, flashcardStats, quizStats, studyStreak] = await Promise.all([
-      getDocumentStats(userId),
-      getFlashcardStats(userId),
-      getQuizStats(userId),
-      getStudyStreak(userId),
-    ]);
+    const [documentStats, flashcardStats, quizStats, studyStreak] =
+      await Promise.all([
+        getDocumentStats(userId),
+        getFlashcardStats(userId),
+        getQuizStats(userId),
+        getStudyStreak(userId),
+      ]);
 
     res.status(200).json({
       success: true,

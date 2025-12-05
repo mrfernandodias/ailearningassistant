@@ -105,7 +105,7 @@ export const submitQuiz = async (req, res, next) => {
     const userAnswers = []; // Array para armazenar as respostas processadas
 
     // 7. Itera sobre cada resposta fornecida pelo usuário
-    answers.forEach(answer => {
+    answers.forEach((answer) => {
       const { questionIndex, selectedAnswer } = answer;
 
       // 8. Valida se o índice da questão é válido
@@ -114,7 +114,7 @@ export const submitQuiz = async (req, res, next) => {
         const question = quiz.questions[questionIndex];
 
         // 10. Normaliza as respostas para comparação (remove prefixos como "01: ", "02: ", etc)
-        const normalizeAnswer = text => {
+        const normalizeAnswer = (text) => {
           return text.replace(/^\d+:\s*/, '').trim();
         };
 
@@ -123,7 +123,8 @@ export const submitQuiz = async (req, res, next) => {
 
         // 11. Compara a resposta do usuário com a resposta correta (normalizada)
         const isCorrect =
-          normalizedSelected === normalizedCorrect || selectedAnswer === question.correctAnswer; // Fallback para formato exato
+          normalizedSelected === normalizedCorrect ||
+          selectedAnswer === question.correctAnswer; // Fallback para formato exato
 
         // 12. Incrementa o contador se a resposta estiver correta
         if (isCorrect) correctCount++;
@@ -199,7 +200,9 @@ export const getQuizResults = async (req, res, next) => {
 
     // Build detailed results
     const detailedResults = quiz.questions.map((question, index) => {
-      const userAnswer = quiz.userAnswers.find(a => a.questionIndex === index);
+      const userAnswer = quiz.userAnswers.find(
+        (a) => a.questionIndex === index,
+      );
 
       return {
         questionIndex: index,

@@ -18,7 +18,7 @@ import User from '../models/User.js';
  * @param {string} id - User ID
  * @returns {string} JWT Token
  */
-const generateToken = id => {
+const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE || '7d',
   });
@@ -42,7 +42,10 @@ export const register = async (req, res, next) => {
     if (userExists) {
       return res.status(400).json({
         success: false,
-        error: userExists.email === email ? 'Email already registered' : 'Username already taken',
+        error:
+          userExists.email === email
+            ? 'Email already registered'
+            : 'Username already taken',
         statusCode: 400,
       });
     }

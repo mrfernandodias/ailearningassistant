@@ -6,7 +6,9 @@ dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 if (!process.env.GEMINI_API_KEY) {
-  console.error('FATAL ERROR: GEMINI_API_KEY is not set in the environment variables');
+  console.error(
+    'FATAL ERROR: GEMINI_API_KEY is not set in the environment variables',
+  );
   process.exit(1);
 }
 
@@ -49,7 +51,7 @@ export const generateFlashcards = async (text, count = 10) => {
 
     // Parse the response
     const flashcards = [];
-    const cards = generatedText.split('---').filter(c => c.trim());
+    const cards = generatedText.split('---').filter((c) => c.trim());
 
     for (const card of cards) {
       const lines = card.trim().split('\n');
@@ -124,7 +126,7 @@ export const generateQuiz = async (text, numQuestions = 5) => {
     const generatedText = response.text;
 
     const questions = [];
-    const questionBlocks = generatedText.split('---').filter(q => q.trim());
+    const questionBlocks = generatedText.split('---').filter((q) => q.trim());
 
     for (const block of questionBlocks) {
       const lines = block.trim().split('\n');
@@ -153,7 +155,13 @@ export const generateQuiz = async (text, numQuestions = 5) => {
       }
 
       if (question && options.length === 4 && correctAnswer) {
-        questions.push({ question, options, correctAnswer, explanation, difficulty });
+        questions.push({
+          question,
+          options,
+          correctAnswer,
+          explanation,
+          difficulty,
+        });
       }
     }
     return questions.slice(0, numQuestions);
@@ -168,7 +176,7 @@ export const generateQuiz = async (text, numQuestions = 5) => {
  * @param {string} text - Document text
  * @param {Promise<string>}
  */
-export const generateSummary = async text => {
+export const generateSummary = async (text) => {
   const prompt = `You are an expert at summarizing technical and educational content.
 
   Instructions:
@@ -209,15 +217,23 @@ export const generateSummary = async text => {
  * @param {Array<Object>} conversationHistory - Previous messages (optional)
  * @return {Promise<string>}
  */
-export const chatWithContext = async (question, chunks, conversationHistory = []) => {
-  const context = chunks.map((c, i) => `[Chunk ${i + 1}]\n${c.content}`).join('\n\n');
+export const chatWithContext = async (
+  question,
+  chunks,
+  conversationHistory = [],
+) => {
+  const context = chunks
+    .map((c, i) => `[Chunk ${i + 1}]\n${c.content}`)
+    .join('\n\n');
 
   // Build conversation history string
   const historyText =
     conversationHistory.length > 0
       ? `\nPrevious conversation:\n${conversationHistory
           .slice(-5)
-          .map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`)
+          .map(
+            (m) => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`,
+          )
           .join('\n')}\n`
       : '';
 
@@ -257,7 +273,7 @@ Answer:`;
  * @param {string} query - Original user query
  * @return {Promise<Array<string>>}
  */
-export const expandQuery = async query => {
+export const expandQuery = async (query) => {
   const prompt = `Given the following search query, generate 2-3 alternative phrasings or related questions that capture the same intent. Return ONLY the alternatives, one per line, without numbering or explanation.
 
 Original query: ${query}
@@ -273,8 +289,8 @@ Alternatives:`;
     const generatedText = response.text;
     const alternatives = generatedText
       .split('\n')
-      .map(line => line.trim())
-      .filter(line => line.length > 0 && !line.match(/^\d+[.)]/));
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0 && !line.match(/^\d+[.)]/));
 
     return [query, ...alternatives.slice(0, 2)];
   } catch (error) {

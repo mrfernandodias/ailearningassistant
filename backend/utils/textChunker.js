@@ -55,7 +55,9 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
    * ⚠️ PROBLEMA: Como linha 16 removeu todos \n, isso não funciona como esperado
    * Deveria dividir por \n+, mas texto não tem mais \n
    */
-  const paragraphs = cleanedText.split(/\n+/).filter(p => p.trim().length > 0);
+  const paragraphs = cleanedText
+    .split(/\n+/)
+    .filter((p) => p.trim().length > 0);
 
   /**
    * VARIÁVEIS DE CONTROLE
@@ -121,7 +123,10 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
      * CASO 2: Adicionar parágrafo normal ao chunk atual
      * Verifica se adicionar esse parágrafo ultrapassa o limite
      */
-    if (currentWordCount + paragraphWordCount > chunkSize && currentChunk.length > 0) {
+    if (
+      currentWordCount + paragraphWordCount > chunkSize &&
+      currentChunk.length > 0
+    ) {
       // Salvar chunk atual (está cheio)
       chunks.push({
         content: currentChunk.join('\n\n'),
@@ -140,7 +145,9 @@ export const chunkText = (text, chunkSize = 500, overlap = 50) => {
       const prevWords = prevChunkText.split(/\s+/);
 
       // Pega no máximo 'overlap' palavras do final
-      const overlapText = prevWords.slice(-Math.min(overlap, prevWords.length)).join(' ');
+      const overlapText = prevWords
+        .slice(-Math.min(overlap, prevWords.length))
+        .join(' ');
 
       // Novo chunk começa com overlap + parágrafo atual
       currentChunk = [overlapText, paragraph.trim()];
@@ -364,7 +371,7 @@ export const findRelevantChunks = (chunks, query, maxChunks = 3) => {
   const queryWords = query
     .toLowerCase()
     .split(/\s+/)
-    .filter(w => w.length > 2 && !stopWords.has(w));
+    .filter((w) => w.length > 2 && !stopWords.has(w));
 
   /**
    * FALLBACK: Se nenhuma palavra relevante
@@ -375,7 +382,7 @@ export const findRelevantChunks = (chunks, query, maxChunks = 3) => {
    * Nesse caso, retorna primeiros N chunks sem scoring
    */
   if (queryWords.length === 0) {
-    return chunks.slice(0, maxChunks).map(chunk => ({
+    return chunks.slice(0, maxChunks).map((chunk) => ({
       content: chunk.content,
       chunkIndex: chunk.chunkIndex,
       pageNumber: chunk.pageNumber,
@@ -411,7 +418,9 @@ export const findRelevantChunks = (chunks, query, maxChunks = 3) => {
      * Pontuação: cada match vale 3 pontos
      */
     for (const word of queryWords) {
-      const exactMatches = (content.match(new RegExp(`\\b${word}\\b`, 'g')) || []).length;
+      const exactMatches = (
+        content.match(new RegExp(`\\b${word}\\b`, 'g')) || []
+      ).length;
       score += exactMatches * 3;
     }
 
@@ -426,7 +435,9 @@ export const findRelevantChunks = (chunks, query, maxChunks = 3) => {
      * - Chunk A: menciona "machine" e "learning" = 2 palavras = +4 pontos
      * - Chunk B: menciona só "machine" = 1 palavra = 0 bônus
      */
-    const uniqueWordsFound = queryWords.filter(word => content.includes(word)).length;
+    const uniqueWordsFound = queryWords.filter((word) =>
+      content.includes(word),
+    ).length;
     if (uniqueWordsFound > 1) {
       score += uniqueWordsFound * 2;
     }
@@ -489,7 +500,7 @@ export const findRelevantChunks = (chunks, query, maxChunks = 3) => {
    * Laravel: Similar a ->filter()->sortByDesc()->take()
    */
   return scoredChunks
-    .filter(chunk => chunk.score > 0)
+    .filter((chunk) => chunk.score > 0)
     .sort((a, b) => {
       // Ordenação primária: maior score
       if (b.score !== a.score) {

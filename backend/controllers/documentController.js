@@ -41,7 +41,7 @@ export const uploadDocument = async (req, res, next) => {
     });
 
     // Process PDF in background (in production, use a queue like Bull)
-    processPDF(document._id, req.file.path).catch(err => {
+    processPDF(document._id, req.file.path).catch((err) => {
       console.error('PDF processing error: ', err);
     });
 
@@ -182,7 +182,10 @@ export const deleteDocument = async (req, res, next) => {
       await fs.unlink(document.filePath);
     } catch (unlinkError) {
       // Log error but don't fail the request (file may already be deleted)
-      console.warn(`Failed to delete file: ${document.filePath}`, unlinkError.message);
+      console.warn(
+        `Failed to delete file: ${document.filePath}`,
+        unlinkError.message,
+      );
     }
 
     res.status(200).json({

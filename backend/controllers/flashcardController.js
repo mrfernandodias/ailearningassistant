@@ -74,7 +74,7 @@ export const reviewFlashcard = async (req, res, next) => {
     }
 
     const cardIndex = flashcardSet.cards.findIndex(
-      card => card._id.toString() === req.params.cardId
+      (card) => card._id.toString() === req.params.cardId,
     );
 
     if (cardIndex === -1) {
@@ -122,7 +122,7 @@ export const toggleStarFlashcard = async (req, res, next) => {
     }
 
     const cardIndex = flashcardSet.cards.findIndex(
-      card => card._id.toString() === req.params.cardId
+      (card) => card._id.toString() === req.params.cardId,
     );
 
     if (cardIndex === -1) {
@@ -134,7 +134,8 @@ export const toggleStarFlashcard = async (req, res, next) => {
     }
 
     // Toggle star
-    flashcardSet.cards[cardIndex].isStarred = !flashcardSet.cards[cardIndex].isStarred;
+    flashcardSet.cards[cardIndex].isStarred =
+      !flashcardSet.cards[cardIndex].isStarred;
 
     await flashcardSet.save();
 

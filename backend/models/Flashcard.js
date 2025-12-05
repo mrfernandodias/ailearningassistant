@@ -38,7 +38,7 @@ const flashcardSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 flashcardSchema.index({ userId: 1, documentId: 1 });

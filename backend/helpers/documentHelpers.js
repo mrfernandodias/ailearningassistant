@@ -47,7 +47,7 @@ export const processPDF = async (documentId, filePath) => {
     });
 
     console.log(
-      `✅ Document ${documentId} processed successfully (${numPages} pages, ${chunks.length} chunks)`
+      `✅ Document ${documentId} processed successfully (${numPages} pages, ${chunks.length} chunks)`,
     );
   } catch (error) {
     // Em caso de erro, marcar documento como falho
