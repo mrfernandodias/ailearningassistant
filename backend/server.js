@@ -28,6 +28,7 @@ import aiRoutes from './routes/aiRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import documentRoutes from './routes/documentRoutes.js';
 import flashcardRoutes from './routes/flashcardRoutes.js';
+import quizRoutes from './routes/quizRoutes.js';
 
 // ==========================================
 // ⚙️ CONFIGURAÇÃO INICIAL
@@ -141,6 +142,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/flashcards', flashcardRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/quizzes', quizRoutes);
 
 // ==========================================
 // ❌ 404 HANDLER - Rota Não Encontrada
