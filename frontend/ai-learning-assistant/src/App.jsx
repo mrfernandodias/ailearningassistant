@@ -5,6 +5,7 @@ import {
   Routes,
 } from 'react-router-dom';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import { useAuth } from './context/AuthContext';
 import LoginPage from './pages/Auth/LoginPage';
 import RegisterPage from './pages/Auth/RegisterPage';
 import DashboardPage from './pages/Dashboard/DashboardPage';
@@ -17,8 +18,7 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import QuizResultPage from './pages/Quizzes/QuizResultPage';
 import QuizTakePage from './pages/Quizzes/QuizTakePage';
 const App = () => {
-  const isAuthenticated = true;
-  const loading = false;
+  const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
     return (

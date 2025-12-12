@@ -30,9 +30,16 @@ axiosInstance.interceptors.response.use(
   (error) => {
     // Handle authentication errors
     if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      window.location.href = '/login';
-      return Promise.reject(new Error('Session expired. Please login again.'));
+      // Only redirect to login if NOT already on login/register pages
+      const currentPath = window.location.pathname;
+      if (
+        !currentPath.includes('/login') &&
+        !currentPath.includes('/register')
+      ) {
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
+      return Promise.reject(error);
     }
 
     // Handle server errors
