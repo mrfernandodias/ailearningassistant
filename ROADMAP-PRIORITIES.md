@@ -95,11 +95,43 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
   - **Why High Priority**: Enhances study sessions, simple to build
 
 - [ ] **Study Streaks** (1 week)
+
   - **Effort**: Low | **Value**: High | **Complexity**: Low
   - Track consecutive study days
   - Visual streak indicator
   - Streak recovery grace period
   - **Why High Priority**: High engagement boost, low effort
+
+- [ ] **Offline Mode (PWA)** (2 weeks)
+  - **Effort**: Medium | **Value**: High | **Complexity**: Medium
+  - Service worker implementation
+  - Cache documents and flashcards
+  - Background sync for actions
+  - Push notifications
+  - **Why High Priority**: Enables mobile learning, increases accessibility
+
+### **Authentication Enhancements** (User Acquisition)
+
+- [ ] **Google OAuth (SSO)** (1 week)
+
+  - **Effort**: Low | **Value**: Very High | **Complexity**: Low
+  - Google Sign-In button
+  - OAuth 2.0 flow implementation
+  - Link Google account to existing users
+  - **Why High Priority**: Reduces signup friction, increases conversions
+  - **Skills**: Passport.js, Google OAuth API
+
+- [ ] **GitHub OAuth** (3 days)
+
+  - **Effort**: Low | **Value**: Medium | **Complexity**: Low
+  - Developer-focused login option
+  - **Why High Priority**: Easy after Google OAuth, targets tech audience
+
+- [ ] **Magic Link Authentication** (1 week)
+  - **Effort**: Low | **Value**: Medium | **Complexity**: Low
+  - Passwordless email login
+  - Time-limited secure tokens
+  - **Why High Priority**: Modern UX, reduces password fatigue
 
 ### **Export & Integration** (User Retention)
 
@@ -112,10 +144,25 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
   - **Why High Priority**: Users want portability, established format
 
 - [ ] **Notion Export** (1 week)
+
   - **Effort**: Low | **Value**: Medium | **Complexity**: Low
   - Export summaries and flashcards to Notion
   - Notion API integration
   - **Why High Priority**: Popular user workflow
+
+- [ ] **Obsidian Export** (3 days)
+
+  - **Effort**: Low | **Value**: Medium | **Complexity**: Low
+  - Export notes in Obsidian markdown format
+  - Bidirectional links support
+  - **Why High Priority**: Easy after Notion, targets power users
+
+- [ ] **Google Drive Integration** (1 week)
+  - **Effort**: Medium | **Value**: High | **Complexity**: Medium
+  - Direct document import from Drive
+  - OAuth integration
+  - Auto-sync option
+  - **Why High Priority**: Reduces upload friction, common workflow
 
 ### **Learning Optimization**
 
@@ -151,12 +198,29 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
   - **Skills**: Graph algorithms, visualization libraries
 
 - [ ] **Multi-Format Support** (4 weeks)
+
   - **Effort**: High | **Value**: High | **Complexity**: Medium
   - DOCX, PPTX support (mammoth.js, officegen)
   - EPUB support (epub.js)
   - Markdown/HTML processing
   - **Dependencies**: None
   - **Skills**: File parsing libraries
+
+- [ ] **Voice-to-Text Notes** (2 weeks)
+
+  - **Effort**: Medium | **Value**: Medium | **Complexity**: Medium
+  - Whisper AI integration
+  - Real-time transcription
+  - Voice note storage and playback
+  - **Why Medium Priority**: Increases accessibility, mobile-friendly
+
+- [ ] **Collaborative Notes** (4 weeks)
+  - **Effort**: High | **Value**: High | **Complexity**: High
+  - Real-time co-editing (Yjs, Socket.io)
+  - Conflict resolution
+  - Cursor presence
+  - **Dependencies**: Social features
+  - **Why Medium Priority**: Strong retention feature but complex
 
 ### **Social Features (Phase 1)**
 
@@ -209,11 +273,36 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
   - **Dependencies**: Advanced AI, subject-specific logic
 
 - [ ] **Concept Relationships Graph** (4 weeks)
+
   - **Effort**: High | **Value**: Medium | **Complexity**: High
   - Knowledge graph visualization
   - Prerequisite detection
   - Learning path generation
   - **Dependencies**: Advanced AI, graph database
+
+- [ ] **AI Chatbot Tutor** (6 weeks)
+
+  - **Effort**: Very High | **Value**: High | **Complexity**: High
+  - Subject-specific tutors (Math, Physics, Programming)
+  - Personalized learning paths
+  - Adaptive difficulty
+  - **Why Low Priority**: High API costs, needs fine-tuning
+  - **Dependencies**: Advanced AI models
+
+- [ ] **Knowledge Gap Detection** (3 weeks)
+
+  - **Effort**: High | **Value**: High | **Complexity**: High
+  - Analyze quiz/flashcard performance
+  - Identify missing concepts
+  - Recommend study materials
+  - **Dependencies**: Advanced analytics, ML models
+
+- [ ] **Auto-generated Mind Maps** (4 weeks)
+  - **Effort**: High | **Value**: Medium | **Complexity**: High
+  - Extract concept hierarchies
+  - Visual knowledge representation
+  - Interactive exploration
+  - **Dependencies**: Mind map infrastructure
 
 ### **Advanced Social Features**
 
@@ -343,11 +432,31 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
   - **Why Future**: Complex, accessibility feature, limited audience
 
 - [ ] **AR Study Cards** (12 weeks)
+
   - **Effort**: Very High | **Value**: Low | **Complexity**: Very High
   - AR.js or WebXR integration
   - 3D flashcard visualization
   - Mobile app required
   - **Why Future**: Experimental, high development cost, unproven ROI
+
+- [ ] **YouTube Video Import** (8 weeks)
+
+  - **Effort**: Very High | **Value**: High | **Complexity**: Very High
+  - Auto-transcription with Whisper AI
+  - Timestamp-based flashcards
+  - Video quiz sync
+  - Key moments detection
+  - **Why Future**: High API costs, complex processing
+  - **Dependencies**: Video infrastructure
+
+- [ ] **Mobile Native Apps** (16 weeks)
+  - **Effort**: Very High | **Value**: High | **Complexity**: High
+  - iOS (Swift/SwiftUI) or React Native
+  - Android (Kotlin) or React Native
+  - Biometric authentication
+  - Camera OCR for document scanning
+  - **Why Future**: Requires stable web platform first
+  - **Dependencies**: PWA working well
 
 ---
 
@@ -376,16 +485,19 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
 **Goal**: Keep users engaged, add differentiation features
 
 1. Spaced repetition algorithm
-2. Export features (Anki, Notion)
+2. Export features (Anki, Notion, Obsidian)
 3. Pomodoro timer
 4. Progress tracking
 5. Basic points & levels system
+6. **Google OAuth (SSO)** - Reduce signup friction
+7. **Offline Mode (PWA)** - Enable mobile learning
 
 **Success Metrics**:
 
 - 500+ active users
 - 70%+ 7-day retention
 - 50%+ users use export features
+- 30%+ signup via Google OAuth
 
 ---
 
@@ -398,12 +510,16 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
 3. Basic achievements (20-30)
 4. Mind map generation
 5. Multi-format support
+6. **Voice-to-Text notes** - Accessibility boost
+7. **Collaborative notes** - Real-time co-editing
+8. **Google Drive integration** - Seamless workflow
 
 **Success Metrics**:
 
 - 2,000+ active users
 - 20%+ content sharing rate
 - Community-generated content library
+- 15%+ use collaborative features
 
 ---
 
@@ -432,15 +548,20 @@ This document prioritizes features from [ROADMAP.md](ROADMAP.md) using the **Val
 1. Institution admin dashboard
 2. Mentorship system
 3. LMS integrations
-4. Video learning
+4. Video learning (YouTube import)
 5. Automated grading
 6. Emerging tech experiments
+7. **Mobile native apps** (iOS/Android)
+8. **Browser extensions** (Chrome, Firefox, Safari)
+9. **AI chatbot tutors** - Subject-specific assistance
 
 **Success Metrics**:
 
 - 3-5 institutional clients
 - $50k+ MRR
 - Enterprise features validated
+- Mobile app: 10k+ downloads
+- Browser extension: 5k+ users
 
 ---
 
@@ -482,24 +603,32 @@ High Value, Low Effort (DO FIRST) 🟢
 ├─ Summary persistence
 ├─ Study streaks
 ├─ Export to Anki
-└─ Spaced repetition
+├─ Spaced repetition
+├─ Google OAuth (SSO)
+├─ GitHub OAuth
+└─ Magic Link auth
 
 High Value, High Effort (PLAN CAREFULLY) 🟡
 ├─ Frontend implementation
 ├─ Institution dashboard
-├─ Video learning
+├─ Video learning (YouTube)
 ├─ Share content
-└─ Multi-format support
+├─ Multi-format support
+├─ Offline Mode (PWA)
+├─ Collaborative notes
+└─ Mobile native apps
 
 Low Value, Low Effort (QUICK WINS) 🟠
 ├─ Pomodoro timer
 ├─ Notion export
+├─ Obsidian export
 ├─ Basic achievements
-└─ Public profiles
+├─ Public profiles
+└─ Google Drive integration
 
 Low Value, High Effort (AVOID) 🔴
 ├─ AR study cards
-├─ Voice interaction
+├─ Voice interaction (full)
 ├─ Tournament mode
 └─ Blockchain features
 ```
