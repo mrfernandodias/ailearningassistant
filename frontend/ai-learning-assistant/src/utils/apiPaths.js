@@ -9,7 +9,7 @@ export const API_PATHS = {
     CHANGE_PASSWORD: '/api/auth/change-password',
   },
   DOCUMENTS: {
-    UPLOAD: '/api/documents',
+    UPLOAD: '/api/documents/upload',
     GET_DOCUMENTS: '/api/documents',
     GET_DOCUMENT_BY_ID: (id) => `/api/documents/${id}`,
     UPDATE_DOCUMENT: (id) => `/api/documents/${id}`,

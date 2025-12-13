@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import mongoose from 'mongoose';
 import { processPDF } from '../helpers/documentHelpers.js';
+import ChatHistory from '../models/ChatHistory.js';
 import Document from '../models/Document.js';
 import Flashcard from '../models/Flashcard.js';
 import Quiz from '../models/Quiz.js';
@@ -70,7 +71,7 @@ export const getDocuments = async (req, res, next) => {
       },
       {
         $lookup: {
-          from: 'flashCards',
+          from: 'flashcards',
           localField: '_id',
           foreignField: 'documentId',
           as: 'flashcardSets',
@@ -86,6 +87,7 @@ export const getDocuments = async (req, res, next) => {
       },
       {
         $addFields: {
+          // Count flashcard sets associated to the document
           flashcardCount: { $size: '$flashcardSets' },
           quizCount: { $size: '$quizzes' },
         },
@@ -131,7 +133,7 @@ export const getDocument = async (req, res, next) => {
       });
     }
 
-    // Get counts of associated flashcards and quizzes
+    // Get counts: number of flashcard sets and quizzes for this document
     const flashcardCount = await Flashcard.countDocuments({
       documentId: document._id,
       userId: req.user._id,
@@ -148,7 +150,7 @@ export const getDocument = async (req, res, next) => {
     // Combine document data with counts
     const documentData = document.toObject();
     documentData.flashcardCount = flashcardCount;
-    document.quizCount = quizCount;
+    documentData.quizCount = quizCount;
 
     res.status(200).json({
       success: true,
@@ -175,6 +177,26 @@ export const deleteDocument = async (req, res, next) => {
         message: 'Document not found',
         statusCode: 404,
       });
+    }
+
+    // Cascade delete related resources
+    try {
+      await Promise.all([
+        Flashcard.deleteMany({
+          documentId: document._id,
+          userId: req.user._id,
+        }),
+        Quiz.deleteMany({ documentId: document._id, userId: req.user._id }),
+        ChatHistory.deleteMany({
+          documentId: document._id,
+          userId: req.user._id,
+        }),
+      ]);
+    } catch (cascadeError) {
+      console.warn(
+        'Failed to cascade delete related resources:',
+        cascadeError.message,
+      );
     }
 
     // Delete file from filesystem
