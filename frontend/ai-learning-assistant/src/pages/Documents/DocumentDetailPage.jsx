@@ -2,6 +2,7 @@ import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
+import AIActions from '../../components/ai/AIActions';
 import ChatInterface from '../../components/chat/ChatInterface';
 import PageHeader from '../../components/common/PageHeader';
 import Spinner from '../../components/common/Spinner';
@@ -92,7 +93,7 @@ const DocumentDetailPage = () => {
   };
 
   const renderAIActions = () => {
-    return 'renderAIActions';
+    return <AIActions />;
   };
 
   const renderFlashcardsTab = () => {
