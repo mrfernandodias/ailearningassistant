@@ -1,10 +1,79 @@
-# 🗺️ AI Learning Assistant - Product Roadmap
+# Roadmap
+
+## Viewer & Documents
+
+- Replace iframe with React-PDF (pdfjs-dist) for better control (zoom, pages, loading states, text selection).
+- Optional: Integrate Mozilla PDF.js default viewer for a full toolbar (search, print, download) without custom UI work.
+- Add progressive loading and skeletons for large PDFs; show page-wise loading indicators.
+- Smart file serving: ensure public URLs for uploads via `express.static` mapping; add signed URLs when moving to cloud storage.
+- Document metadata: tags, categories, and search by title/tags.
+- Upload UX: drag-and-drop, progress bar, cancel via `AbortController`, size/type validation.
+- Versioning: allow re-upload/replace while keeping history.
+
+## Flashcards
+
+- Sets vs. cards counters: keep set count; add total cards counter in UI (optional toggle).
+- Bulk actions: star/unstar, difficulty editing, and spaced-repetition scheduling.
+- Import/export sets (JSON) for sharing.
+- Analytics: reviews per day, mastery percentage, streaks.
+
+## Quizzes
+
+- Question bank per document with difficulty levels; randomization and retake flows.
+- Detailed results view: per-question correctness, explanations, and weak areas.
+- Timed quizzes, pass thresholds, and certificates (optional).
+
+## Chat & AI
+
+- Contextual chat: highlight referenced PDF chunks; show citations.
+- Prompt presets (summarize, explain, compare concepts).
+- Rate limiting and retry/backoff; queued tasks for heavy processing.
+- Conversation management: rename, pin, archive, and export.
+
+## Dashboard & Progress
+
+- Expand recent activity with filters (docs/quizzes/flashcards) and deep links.
+- Streaks: real tracking with daily activity logs instead of placeholder.
+- Achievements/badges for milestones.
+
+## Performance & Reliability
+
+- Client-side caching (React Query) with background refetch and stale-while-revalidate.
+- Server-side pagination for documents and chat history.
+- Error boundaries and granular toasts; centralized error mapping.
+- Observability: request/response logging, correlation IDs.
+
+## Security & Auth
+
+- JWT rotation, refresh tokens, and 401 auto-logout with soft recovery.
+- Role-based access (future multi-user features).
+- File scanning (virus/malware) on upload when moving to cloud.
+
+## Accessibility & UX
+
+- Keyboard navigation for modals/viewer;
+- ARIA labels and roles across interactive components.
+- High-contrast theme and font-size controls.
+
+## CI/CD & Testing
+
+- Unit tests for controllers and services; integration tests for key endpoints.
+- Frontend component tests (React Testing Library) for modals and loaders.
+- Git hooks: lint, format, and test before push.
+
+## Storage & Infra (Future)
+
+- Migrate uploads to S3/Cloud Storage with signed URLs and lifecycle policies.
+- Queue (BullMQ) for PDF processing and AI generation jobs.
+- Containerization and deployment pipeline.
+
+# 🗺️ AI Learning Assistant - Product Roadmap (Extended)
 
 <div align="center">
 
 **Complete vision for the future of AI-powered learning**
 
-This document outlines the long-term vision, features, and business strategy for transforming the AI Learning Assistant into a comprehensive educational platform.
+This section outlines the long-term vision, features, and business strategy for transforming the AI Learning Assistant into a comprehensive educational platform.
 
 </div>
 

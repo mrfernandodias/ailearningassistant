@@ -18,8 +18,6 @@ const DashboardPage = () => {
     const fetchDashboardData = async () => {
       try {
         const data = await progressService.getDashboardData();
-        console.error('Data___getDashboardData', data);
-
         setDashboardData(data.data);
       } catch (error) {
         toast.error('Failed to fetch dashboard data.');
@@ -103,7 +101,7 @@ const DashboardPage = () => {
                   {stat.label}
                 </span>
                 <div
-                  className={`w-11 h-11 rounded-xl bg-linear-to-br ${stat.gradient} shadow-lg ${stat.shadowColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-11 h-11 rounded-xl bg-gradient-to-br ${stat.gradient} shadow-lg ${stat.shadowColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
                 >
                   <stat.icon className="w-5 h-5 text-white" strokeWidth={2} />
                 </div>
@@ -118,7 +116,7 @@ const DashboardPage = () => {
         {/* Recent Activity */}
         <div className="bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-xl shadow-slate-200/50 p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
               <Clock className="w-5 h-5 text-slate-600" strokeWidth={2} />
             </div>
             <h3 className="text-xl font-medium text-slate-900 tracking-tight">
@@ -158,8 +156,8 @@ const DashboardPage = () => {
                         <div
                           className={`w-2 h-2 rounded-full ${
                             activity.type === 'document'
-                              ? 'bg-linear-to-r from-cyan-500 to-cyan-500'
-                              : 'bg-linear-to-r from-emerald-400 to-teal-500'
+                              ? 'bg-gradient-to-r from-cyan-500 to-cyan-500'
+                              : 'bg-gradient-to-r from-emerald-400 to-teal-500'
                           }`}
                         ></div>
                         <p className="text-sm font-medium text-slate-900 truncate">

@@ -1,5 +1,7 @@
 import fs from 'fs/promises';
 import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { processPDF } from '../helpers/documentHelpers.js';
 import ChatHistory from '../models/ChatHistory.js';
 import Document from '../models/Document.js';
@@ -31,17 +33,21 @@ export const uploadDocument = async (req, res, next) => {
       });
     }
 
-    // Create document record
+    // Build public path to be served via Express static
+    const publicFilePath = `/uploads/documents/${req.file.filename}`;
+
+    // Create document record (store public-relative path)
     const document = await Document.create({
       userId: req.user.id,
       title,
       fileName: req.file.originalname,
-      filePath: req.file.path, // Physical path on server
+      filePath: publicFilePath, // Public path (served under /uploads)
       fileSize: req.file.size,
       status: 'processing',
     });
 
     // Process PDF in background (in production, use a queue like Bull)
+    // Use physical path for processing
     processPDF(document._id, req.file.path).catch((err) => {
       console.error('PDF processing error: ', err);
     });
@@ -199,13 +205,20 @@ export const deleteDocument = async (req, res, next) => {
       );
     }
 
+    // Resolve physical filesystem path from stored public path
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const publicPath = document.filePath || '';
+    const relativePath = publicPath.replace(/^\/+/, ''); // remove leading '/'
+    const physicalPath = path.join(__dirname, '..', relativePath);
+
     // Delete file from filesystem
     try {
-      await fs.unlink(document.filePath);
+      await fs.unlink(physicalPath);
     } catch (unlinkError) {
       // Log error but don't fail the request (file may already be deleted)
       console.warn(
-        `Failed to delete file: ${document.filePath}`,
+        `Failed to delete file: ${physicalPath}`,
         unlinkError.message,
       );
     }

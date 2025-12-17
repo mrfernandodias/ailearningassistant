@@ -15,6 +15,7 @@ const DocumentListPage = () => {
   const [uploadFile, setUploadFile] = useState(null);
   const [uploadTitle, setUploadTitle] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   // State for delete confirmation modal
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -233,7 +234,41 @@ const DocumentListPage = () => {
                 >
                   PDF File
                 </label>
-                <div className="relative border-2 border-dashed border-slate-300 rounded-xl bg-slate-50/50 hover:border-emerald-400 hover:bg-emerald-50/30 transition-all duration-200">
+                <div
+                  className={`relative border-2 border-dashed rounded-xl transition-all duration-200 ${
+                    isDragging
+                      ? 'border-emerald-500 bg-emerald-50/50 ring-2 ring-emerald-400'
+                      : 'border-slate-300 bg-slate-50/50 hover:border-emerald-400 hover:bg-emerald-50/30'
+                  }`}
+                  onDragEnter={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsDragging(true);
+                  }}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsDragging(true);
+                  }}
+                  onDragLeave={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsDragging(false);
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsDragging(false);
+                    const file = e.dataTransfer?.files?.[0];
+                    if (file) {
+                      if (file.type !== 'application/pdf') {
+                        return;
+                      }
+                      setUploadFile(file);
+                      setUploadTitle(file.name.replace(/\.[^/.]+$/, ''));
+                    }
+                  }}
+                >
                   <input
                     type="file"
                     id="file-upload"

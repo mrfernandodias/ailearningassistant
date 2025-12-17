@@ -343,23 +343,22 @@ export const getChatHistory = async (req, res, next) => {
       });
     }
 
-    const chatHistory = ChatHistory.findOne({
+    const chatHistory = await ChatHistory.findOne({
       userId: req.user._id,
       documentId: documentId,
     }).select('messages');
 
     if (!chatHistory) {
-      return res.status(404).json({
-        success: false,
+      return res.status(200).json({
+        success: true,
         data: [],
-        message: 'Not chat history found for this document',
-        statusCode: 404,
+        message: 'No chat history found for this document',
       });
     }
 
     res.status(200).json({
       success: true,
-      data: chatHistory.messages,
+      data: chatHistory.messages || [],
       message: 'Chat history retrieved successfully',
     });
   } catch (error) {

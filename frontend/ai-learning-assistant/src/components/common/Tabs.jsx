@@ -1,0 +1,43 @@
+const Tabs = ({ tabs, activeTab, setActiveTab }) => {
+  return (
+    <div className="w-full">
+      <div className="relative border-b border-slate-200/60">
+        <nav className="flex gap-2 px-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab.name}
+              onClick={() => setActiveTab(tab.name)}
+              className={`relative pb-3 pt-3 px-4 text-sm font-semibold rounded-xl transition-all duration-200 ${
+                activeTab === tab.name
+                  ? 'text-emerald-600 bg-emerald-50/50'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+              }`}
+            >
+              <span className="relative z-10">{tab.label}</span>
+              {activeTab === tab.name && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full shadow-lg shadow-emerald-500/25"></div>
+              )}
+              {activeTab === tab.name && (
+                <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/50 to-transparent rounded-xl -z-10"></div>
+              )}
+            </button>
+          ))}
+        </nav>
+      </div>
+      <div className="py-6">
+        {tabs.map((tab) => {
+          if (tab.name === activeTab) {
+            return (
+              <div className="animate-in fade-in duration-300" key={tab.name}>
+                {tab.content}
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default Tabs;
