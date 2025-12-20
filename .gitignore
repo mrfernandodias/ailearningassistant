@@ -62,11 +62,7 @@ lib-cov
 # ==========================================
 # 🔧 IDEs & EDITORS
 # ==========================================
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/
 *.code-workspace
 .idea/
 *.swp
