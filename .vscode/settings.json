@@ -51,5 +51,53 @@
   "typescript.suggest.autoImports": true,
   "css.lint.unknownAtRules": "ignore",
 
-  "eslint.workingDirectories": [{ "mode": "auto" }]
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+
+  // Performance: sugestões mais rápidas e menos sobrecarga
+  "editor.quickSuggestionsDelay": 0,
+
+  // Watcher: ignore pastas pesadas
+  "files.watcherExclude": {
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.next/**": true,
+    "**/out/**": true,
+    "**/.turbo/**": true,
+    "**/.cache/**": true,
+    "frontend/**/coverage/**": true,
+    "backend/**/coverage/**": true
+  },
+
+  // Indexação/Pesquisa mais leve
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/dist": true,
+    "**/build": true
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.DS_Store": true
+  },
+
+  // TypeScript server tuning
+  "typescript.tsserver.maxTsServerMemory": 3072,
+  "typescript.tsserver.log": "off",
+
+  // Sugestões JS menos custosas
+  "javascript.suggest.completeFunctionCalls": false,
+
+  // Evitar escaneamentos automáticos desnecessários
+  "npm.autoDetect": "off",
+  "git.autofetch": false,
+
+  // UI tweaks
+  "breadcrumbs.enabled": false,
+  "workbench.editor.enablePreview": true,
+  "telemetry.telemetryLevel": "off",
+  "extensions.ignoreRecommendations": true,
+  "terminal.integrated.gpuAcceleration": "off"
 }

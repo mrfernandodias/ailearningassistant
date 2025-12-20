@@ -106,42 +106,47 @@ export const submitQuiz = async (req, res, next) => {
 
     // 7. Itera sobre cada resposta fornecida pelo usuário
     answers.forEach((answer) => {
-      const { questionIndex, selectedAnswer } = answer;
+      const { questionIndex, optionIndex } = answer;
 
-      // 8. Valida se o índice da questão é válido
-      if (questionIndex < quiz.questions.length) {
+      // 8. Valida se o índice da questão e opção são válidos
+      if (
+        typeof questionIndex === 'number' &&
+        questionIndex >= 0 &&
+        questionIndex < quiz.questions.length &&
+        typeof optionIndex === 'number' &&
+        optionIndex >= 0 &&
+        optionIndex < (quiz.questions[questionIndex]?.options?.length ?? 0)
+      ) {
         // 9. Obtém a questão correspondente do quiz
         const question = quiz.questions[questionIndex];
 
-        // 10. Normaliza as respostas para comparação (remove prefixos como "01: ", "02: ", etc)
-        const normalizeAnswer = (text) => {
-          return text.replace(/^\d+:\s*/, '').trim();
-        };
+        // 10. Converte a resposta correta ordinal ("01".."04") para índice 0-based
+        const correctIndex = Number.parseInt(question.correctAnswer, 10) - 1;
 
-        const normalizedCorrect = normalizeAnswer(question.correctAnswer);
-        const normalizedSelected = normalizeAnswer(selectedAnswer);
-
-        // 11. Compara a resposta do usuário com a resposta correta (normalizada)
-        const isCorrect =
-          normalizedSelected === normalizedCorrect ||
-          selectedAnswer === question.correctAnswer; // Fallback para formato exato
+        // 11. Compara diretamente por índice: simples e confiável
+        const isCorrect = optionIndex === correctIndex;
 
         // 12. Incrementa o contador se a resposta estiver correta
         if (isCorrect) correctCount++;
 
-        // 13. Adiciona a resposta processada ao array userAnswers
+        // 13. Resolve o texto da opção selecionada para armazenar
+        const selectedAnswerText = question.options?.[optionIndex] ?? '';
+
+        // 14. Adiciona a resposta processada ao array userAnswers (inclui optionIndex para facilitar resultados)
         userAnswers.push({
           questionIndex,
-          selectedAnswer,
+          optionIndex,
+          selectedAnswer: selectedAnswerText,
           isCorrect,
-          answeredAt: new Date(), // Registra quando foi respondida
+          answeredAt: new Date(),
         });
       }
     });
 
     // 14. Calcula a pontuação como percentual
     // Exemplo: 8 corretas de 10 = 80%
-    const score = Math.round((correctCount / quiz.totalQuestions) * 100);
+    const total = quiz.totalQuestions ?? quiz.questions.length;
+    const score = Math.round((correctCount / total) * 100);
 
     // 15. Atualiza o documento do quiz com os resultados
     quiz.userAnswers = userAnswers; // Armazena todas as respostas
@@ -204,13 +209,32 @@ export const getQuizResults = async (req, res, next) => {
         (a) => a.questionIndex === index,
       );
 
+      // Deriva índices e textos auxiliares
+      const correctIndex = Number.parseInt(question.correctAnswer, 10) - 1;
+      const selectedIndex =
+        typeof userAnswer?.optionIndex === 'number'
+          ? userAnswer.optionIndex
+          : Array.isArray(question.options)
+            ? question.options.findIndex(
+                (opt) => opt === userAnswer?.selectedAnswer,
+              )
+            : -1;
+      const correctAnswerText = Array.isArray(question.options)
+        ? (question.options[correctIndex] ?? null)
+        : null;
+
       return {
         questionIndex: index,
         question: question.question,
         correctAnswer: question.correctAnswer,
+        options: Array.isArray(question.options) ? question.options : [],
         selectedAnswer: userAnswer?.selectedAnswer || null,
         isCorrect: userAnswer?.isCorrect || false,
         explanation: question.explanation,
+        // Campos adicionais para o frontend
+        correctIndex,
+        selectedIndex,
+        correctAnswerText,
       };
     });
 
