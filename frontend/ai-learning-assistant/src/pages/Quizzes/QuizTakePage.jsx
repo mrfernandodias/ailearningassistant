@@ -295,7 +295,7 @@ const QuizTakePage = () => {
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
             >
-              {index}
+              {index + 1}
             </button>
           );
         })}
